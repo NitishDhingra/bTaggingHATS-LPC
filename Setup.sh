@@ -1,5 +1,5 @@
 #!/bin/sh
 
-mv bTaggingHATS-LPC/* ../ 
+mv bTaggingHATS-LPC/* . 
 rm -rf bTaggingHATS-LPC
 
