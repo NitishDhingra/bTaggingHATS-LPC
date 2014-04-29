@@ -69,11 +69,13 @@ process.maxEvents.input = 1000
 #                                         ##
 
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring(
-#        'file:myfile.root'
-'file:/afs/cern.ch/work/n/nitish/LPCBTaggingHATS/CMSSW_5_3_13/src/BTagAnalyzer/PATBTagAnalyzer/16D5D599-F129-E211-AB60-00261894390B.root'
-    )
-)
+		fileNames = cms.untracked.vstring(
+
+			'file:/eos/uscms/store/user/nitish/LPCBTaggingHATS/RelValTTbar_536/16D5D599-F129-E211-AB60-00261894390B.root'
+
+#'file:/afs/cern.ch/work/n/nitish/LPCBTaggingHATS/CMSSW_5_3_13/src/BTagAnalyzer/PATBTagAnalyzer/16D5D599-F129-E211-AB60-00261894390B.root'
+			)
+		)
 
 process.out.fileName = 'patTuple_addBTagging.root'
 process.options.wantSummary = False   ##  (to suppress the long output at the end of the job)
