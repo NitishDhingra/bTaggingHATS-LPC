@@ -54,18 +54,23 @@ class PATBTagAnalyzer : public edm::EDAnalyzer {
 		TH1F *hBJetDiscrByCombinedSecondaryVertexMVA;
 		TH1F *hBJetDiscrByjetProbabilityBJetTags;
 		TH1F *hBJetDiscrByjetBProbabilityBJetTags; 
+                TH1F *hTrueBJetPt;
+                TH1F *hTrueBJetEta;
 		TH1F *hTrueBJetPtPassingCSVM;
 		TH1F *hTrueBJetEtaPassingCSVM;
-		TH1F *hTrueBJetPt;
-                TH1F *hTrueBJetEta;
-                TH1F *hNBJets;     
+                TH1F *hTrueBJetPtPassingCSVT;
+                TH1F *hTrueBJetEtaPassingCSVT;
                 TH1F *hJetPartonFlavor;
                 TH1F *hNonBJetPt;
                 TH1F *hNonBJetEta;
                 TH1F *hNonBJetPtPassingCSVM;
                 TH1F *hNonBJetEtaPassingCSVM;
-                TH1F *hBTagEffCSVM;
-                TH1F *hMisTagEffCSVM;
+                TH1F *hNonBJetPtPassingCSVT;
+                TH1F *hNonBJetEtaPassingCSVT;
+		TH1F *hBTagEffInclusiveCSVM;
+		TH1F *hMisTagInclusiveCSVM;
+//                TH1F *hBTagEffCSVM;
+//                TH1F *hMisTagEffCSVM;
 		InputTag _RecoJetSource;
                 double   _RecoJetEtaMaxCut;
                 double   _RecoJetPtMinCut;  
@@ -94,18 +99,24 @@ PATBTagAnalyzer::PATBTagAnalyzer(const edm::ParameterSet& iConfig)
 	hBJetDiscrByCombinedSecondaryVertexMVA = fs->make<TH1F>("BJetDiscrByCombinedSecondaryVertexMVA", "BJetDiscrByCombinedSecondaryVertexMVA", 400, -20, 20);                
 	hBJetDiscrByjetProbabilityBJetTags = fs->make<TH1F>("BJetDiscrByjetProbabilityBJetTags", "jetProbabilityBJetTags", 25, 0., 2.5);
 	hBJetDiscrByjetBProbabilityBJetTags = fs->make<TH1F>("BJetDiscrByjetBProbabilityBJetTags", "jetBProbabilityBJetTags", 25, 0., 2.5);
-	hTrueBJetPtPassingCSVM = fs->make<TH1F>("TrueBJetPtPassingCSVM","TrueBJetPtPassingCSVM", 100,0., 200.);
-	hTrueBJetEtaPassingCSVM = fs->make<TH1F>("TrueBJetEtaPassingCSVM","TrueBJetEtaPassingCSVM", 160, -4.0, 4.0);
-        hJetPartonFlavor = fs->make<TH1F>("JetPartonFlavor", "JetPartonFlavor", 30, 0, 30);            
+
         hTrueBJetPt = fs->make<TH1F>("TrueBJetPt", "TrueBJetPt", 100,0., 200.);
         hTrueBJetEta = fs->make<TH1F>("TrueBJetEta", "TrueBJetEta", 160, -4.0, 4.0);
-        hNBJets = fs->make<TH1F>("NBJets","NBJets", 5, 0, 5);
+	hTrueBJetPtPassingCSVM = fs->make<TH1F>("TrueBJetPtPassingCSVM","TrueBJetPtPassingCSVM", 100,0., 200.);
+	hTrueBJetEtaPassingCSVM = fs->make<TH1F>("TrueBJetEtaPassingCSVM","TrueBJetEtaPassingCSVM", 160, -4.0, 4.0);
+	hTrueBJetPtPassingCSVT = fs->make<TH1F>("TrueBJetPtPassingCSVT","TrueBJetPtPassingCSVT", 100,0., 200.);
+        hTrueBJetEtaPassingCSVT = fs->make<TH1F>("TrueBJetEtaPassingCSVT","TrueBJetEtaPassingCSVT", 160, -4.0, 4.0);
+        hJetPartonFlavor = fs->make<TH1F>("JetPartonFlavor", "JetPartonFlavor", 30, 0, 30);            
 	hNonBJetPt = fs->make<TH1F>("NonBJetPt", "NonBJetPt", 100,0., 200.);
         hNonBJetEta = fs->make<TH1F>("NonBJetEta", "NonBJetEta", 160, -4.0, 4.0);
         hNonBJetPtPassingCSVM = fs->make<TH1F>("NonBJetPtPassingCSVM","NonBJetPtPassingCSVM", 100,0., 200.);
         hNonBJetEtaPassingCSVM = fs->make<TH1F>("NonBJetEtaPassingCSVM","NonBJetEtaPassingCSVM", 160, -4.0, 4.0);
-        hBTagEffCSVM = fs->make<TH1F>("BTagEffCSVM", "BTagEffCSVM", 100,0., 200.);
-        hMisTagEffCSVM = fs->make<TH1F>("MisTagEffCSVM", "MisTagEffCSVM", 100,0., 200.);
+        hNonBJetPtPassingCSVT = fs->make<TH1F>("NonBJetPtPassingCSVT","NonBJetPtPassingCSVT", 100,0., 200.);
+        hNonBJetEtaPassingCSVT = fs->make<TH1F>("NonBJetEtaPassingCSVT","NonBJetEtaPassingCSVT", 160, -4.0, 4.0);	
+        hBTagEffInclusiveCSVM = fs->make<TH1F>("BTagEffInclusiveCSVM", "BTagEffInclusiveCSVM", 100, 0, 1);
+	hMisTagInclusiveCSVM = fs->make<TH1F>("MisTagInclusiveCSVM", "MisTagInclusiveCSVM", 100, 0, 1);
+//        hBTagEffCSVM = fs->make<TH1F>("BTagEffCSVM", "BTagEffCSVM", 100,0., 200.);
+//        hMisTagEffCSVM = fs->make<TH1F>("MisTagEffCSVM", "MisTagEffCSVM", 100,0., 200.);
 
 }
 
@@ -129,6 +140,11 @@ PATBTagAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 	iEvent.getByLabel(_RecoJetSource, _patJets);
 
 	int NBJets=0;
+	int NBJetsPassingCSVM=0;
+	int NBJetsPassingCSVT=0;
+	int NnonBJets=0;
+	int NnonBJetsPassingCSVM=0;
+	int NnonBJetsPassingCSVT=0;	
 	for ( pat::JetCollection::const_iterator patJet = _patJets->begin(); patJet != _patJets->end(); ++patJet ) {
 
 		// Only look at jets that pass jet pt and eta cuts
@@ -142,27 +158,37 @@ PATBTagAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup
 		hBJetDiscrByjetProbabilityBJetTags->Fill(patJet->bDiscriminator("jetProbabilityBJetTags")); 
 		hBJetDiscrByjetBProbabilityBJetTags->Fill(patJet->bDiscriminator("jetBProbabilityBJetTags"));
 		hJetPartonFlavor->Fill(fabs(patJet->partonFlavour()));
-		if(fabs(patJet->partonFlavour()) == 5) { hTrueBJetPt->Fill(patJet->pt()); hTrueBJetEta->Fill(patJet->eta());
+		if(fabs(patJet->partonFlavour()) == 5) { hTrueBJetPt->Fill(patJet->pt()); hTrueBJetEta->Fill(patJet->eta()); NBJets++;
 			if(patJet->bDiscriminator("combinedSecondaryVertexBJetTags") > 0.679) { 
 				hTrueBJetPtPassingCSVM->Fill(patJet->pt()); 
 				hTrueBJetEtaPassingCSVM->Fill(patJet->eta());
-				NBJets++;
+				NBJetsPassingCSVM++;
+			} else if(patJet->bDiscriminator("combinedSecondaryVertexBJetTags") > 0.898) {
+				hTrueBJetPtPassingCSVT->Fill(patJet->pt());
+				hTrueBJetEtaPassingCSVT->Fill(patJet->eta());
+				NBJetsPassingCSVT++;
 			}
 		} else if ((fabs(patJet->partonFlavour()) == 1) || (fabs(patJet->partonFlavour()) == 2) || (fabs(patJet->partonFlavour()) == 3) || (fabs(patJet->partonFlavour()) == 21)) {
 			hNonBJetPt->Fill(patJet->pt()); 
 			hNonBJetEta->Fill(patJet->eta());
+			NnonBJets++;
 			if(patJet->bDiscriminator("combinedSecondaryVertexBJetTags") > 0.679) {
 				hNonBJetPtPassingCSVM->Fill(patJet->pt());
-				hNonBJetEtaPassingCSVM->Fill(patJet->eta());                                
+				hNonBJetEtaPassingCSVM->Fill(patJet->eta());       
+				NnonBJetsPassingCSVM++;                         
+			} else if(patJet->bDiscriminator("combinedSecondaryVertexBJetTags") > 0.898) {
+				hNonBJetPtPassingCSVT->Fill(patJet->pt());
+				hNonBJetEtaPassingCSVT->Fill(patJet->eta());
+				NnonBJetsPassingCSVT++;
 			}
-
 		}
 
 	}
 
-	hBTagEffCSVM->Divide(hTrueBJetPtPassingCSVM,hTrueBJetPt);
-	hMisTagEffCSVM->Divide(hNonBJetPtPassingCSVM,hNonBJetPt);
-	hNBJets->Fill(NBJets); 
+	//	hBTagEffCSVM->Divide(hTrueBJetPtPassingCSVM,hTrueBJetPt);
+	//	hMisTagEffCSVM->Divide(hNonBJetPtPassingCSVM,hNonBJetPt);
+		hBTagEffInclusiveCSVM->Fill(double(NBJetsPassingCSVM)/double(NBJets));
+	        hMisTagInclusiveCSVM->Fill(double(NnonBJetsPassingCSVM)/double(NnonBJets));
 }
 
 
@@ -176,6 +202,7 @@ PATBTagAnalyzer::beginJob()
 void 
 PATBTagAnalyzer::endJob() 
 {
+
 }
 
 // ------------ method called when starting to processes a run  ------------
