@@ -46,11 +46,11 @@ process.TFileService = cms.Service("TFileService",
 
 ## Message Logger
 process.load("FWCore.MessageService.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 100
+process.MessageLogger.cerr.FwkReport.reportEvery = 500
 
 
 ## let it run
-process.p = cms.Path( process.patDefaultSequence + process.demo )
+process.p = cms.Path( process.patDefaultSequence * process.demo )
 
 ## ------------------------------------------------------
 #  In addition you usually want to change the following
@@ -63,18 +63,18 @@ process.p = cms.Path( process.patDefaultSequence + process.demo )
 #from PhysicsTools.PatAlgos.patInputFiles_cff import filesRelValProdTTbarAODSIM
 #process.source.fileNames = filesRelValProdTTbarAODSIM
 #                                         ##
-process.maxEvents.input = 2000
+process.maxEvents.input = -1
 #                                         ##
 #   process.out.outputCommands = [ ... ]  ##  (e.g. taken from PhysicsTools/PatAlgos/python/patEventContent_cff.py)
 #                                         ##
 
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring(
-#        'file:myfile.root'
-'file:/eos/uscms/store/user/nitish/LPCBTaggingHATS/RelValTTbar_536/16D5D599-F129-E211-AB60-00261894390B.root' 
+		fileNames = cms.untracked.vstring(
 
-    )
-)
+'file:/eos/uscms/store/user/nitish/LPCBTaggingHATS/RelValTTbar_536/16D5D599-F129-E211-AB60-00261894390B.root',
+'file:/eos/uscms/store/user/nitish/LPCBTaggingHATS/RelValTTbar_536/62B0DFF3-F729-E211-9754-001A92811744.root'
+			)
+		)
 
 process.out.fileName = 'patTuple_addBTagging.root'
 process.options.wantSummary = False   ##  (to suppress the long output at the end of the job)

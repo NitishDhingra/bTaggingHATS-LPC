@@ -1,19 +1,20 @@
 {
 	gStyle->SetOptStat(0);
+	gROOT->SetBatch(1);
 
 	TFile *f = TFile::Open("analysis.root");
 	TH1F *h1 = (TH1F*)f->Get("demo/TrueBJetPtPassingCSVM");
 	TH1F *h2 = (TH1F*)f->Get("demo/TrueBJetPt");
 	TH1F *h3 = (TH1F*)f->Get("demo/NonBJetPtPassingCSVM");
 	TH1F *h4 = (TH1F*)f->Get("demo/NonBJetPt");
-        h1->Rebin(5);
-	h2->Rebin(5);
-	h3->Rebin(5);
-	h4->Rebin(5);
+        h1->Rebin(10);
+	h2->Rebin(10);
+	h3->Rebin(10);
+	h4->Rebin(10);
 	TH1F *BTagEff = h1->Clone(); 
 	TH1F *MisTagEff = h1->Clone();
 
-	TCanvas *c1 = new TCanvas("c1","n1",400,400);
+	TCanvas *c1 = new TCanvas("c1","n1",600,600);
 	c1->cd();
 	BTagEff->GetXaxis()->SetTitle("p_{T} [GeV]");
 	BTagEff->GetYaxis()->SetTitle("b-tagging Efficiency");
@@ -27,7 +28,7 @@
 	BTagEff->Draw("p0E1");
 	c1->Print("bTagEff_CSVM.png");
 
-	TCanvas *c2 = new TCanvas("c2","n2",400,400);
+	TCanvas *c2 = new TCanvas("c2","n2",600,600);
 	c2->cd();
 	MisTagEff->GetXaxis()->SetTitle("p_{T} [GeV]");
 	MisTagEff->GetYaxis()->SetTitle("Light jet Mis-tagging Efficiency");
