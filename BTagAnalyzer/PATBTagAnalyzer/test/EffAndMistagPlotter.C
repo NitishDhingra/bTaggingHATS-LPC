@@ -31,7 +31,7 @@
 	TCanvas *c2 = new TCanvas("c2","n2",600,600);
 	c2->cd();
 	MisTagEff->GetXaxis()->SetTitle("p_{T} [GeV]");
-	MisTagEff->GetYaxis()->SetTitle("Light jet Mis-tagging Efficiency");
+	MisTagEff->GetYaxis()->SetTitle("Non-bjet Efficiency");
 	MisTagEff->SetTitle("CSV Medium");
 	MisTagEff->Sumw2();
 	MisTagEff->Divide(h3,h4);
@@ -39,7 +39,7 @@
 	MisTagEff->SetMarkerStyle(20);
 	MisTagEff->SetMarkerColor(kRed);
 	MisTagEff->Draw("p0E1");
-	c2->Print("LightJetMisTag_CSVM.png");
+	c2->Print("NonbJetMisTag_CSVM.png");
 
 }
 
